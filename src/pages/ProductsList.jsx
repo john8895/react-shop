@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function ProductsList() {
@@ -10,7 +10,6 @@ function ProductsList() {
       .then((res) => res.json()) // 把HTTP回應轉陣列或物件
       .then((data) => {
         setProducts(data);
-        console.log(data);
       });
   }, []);
 
@@ -37,12 +36,8 @@ function ProductsList() {
         {/* 商品卡片網格 */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
           {products.map((product) => (
-            <>
-              {console.log(product)}
-              <div
-                key={product.id}
-                className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md cursor-pointer bg-white"
-              >
+            <Link to={`/product/${product.id}`} key={product.id}>
+              <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md cursor-pointer bg-white">
                 <div className="h-45 bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
                   <img src={product.image} alt="" width="100" />
                 </div>
@@ -63,7 +58,7 @@ function ProductsList() {
                   </div>
                 </div>
               </div>
-            </>
+            </Link>
           ))}
         </div>
       </div>
