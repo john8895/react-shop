@@ -7,9 +7,9 @@
 
 ## 待做
 - [x] Navbar 的 `<a>` → `<Link>`（練 react-router-dom 的 Link）
-- [ ] ProductsList 接 API（練 useEffect + fetch + map）
+- [x] ProductsList 接 API（練 useEffect + fetch + map）
 - [ ] 建 CartContext（練 useContext）
 - [ ] 按鈕接邏輯（練 onClick + context 操作）
 - [ ] 篩選搜尋（練 filter + useState）
-- [ ] 商品詳情頁接 API（練 useParams）
+- [x] 商品詳情頁接 API（練 useParams）
 - [ ] 部署 GitHub Pages
