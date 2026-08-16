@@ -11,7 +11,7 @@
 - [x] 建 CartContext（練 useContext）
 - [x] 按鈕接邏輯 — ProductsList + ProductDetail（練 onClick + context 操作）
 - [x] Cart 頁接 context（cart.map + 數量增減 + 刪除 + 算總價）
-- [ ] Navbar 購物車數字改動態（cart.length）
+- [x] Navbar 購物車數字改動態（cart.length）
 - [ ] 篩選搜尋（練 filter + useState）
 - [x] 商品詳情頁接 API（練 useParams）
 - [ ] 部署 GitHub Pages

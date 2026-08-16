@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 
 function Navbar() {
+  const { cart } = useContext(CartContext)
+
   return (
     <nav className="bg-slate-800 text-white px-6 py-3.5 flex justify-between items-center">
       <span className="font-bold text-lg">FakeStore</span>
@@ -15,7 +19,7 @@ function Navbar() {
       <Link to="/cart" className="relative">
         🛒
         <span className="absolute -top-2 -right-2.5 bg-red-500 text-white text-xs w-4.5 h-4.5 rounded-full flex items-center justify-center">
-          3
+          {cart.length}
         </span>
       </Link>
     </nav>
