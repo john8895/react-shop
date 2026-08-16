@@ -1,18 +1,32 @@
-# React + Vite
+# React Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React 電商練習專案，使用 FakeStoreAPI 作為資料來源。
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 商品列表、搜尋、分類篩選
+- 商品詳情頁（動態路由）
+- 購物車（加入、刪除、改數量、算總價）
 
-## React Compiler
+## 技術棧
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- React 19 + Vite
+- React Router（SPA 路由）
+- useContext（購物車狀態管理）
+- Tailwind CSS
+- FakeStoreAPI
 
-Note: This will impact Vite dev & build performances.
+## 練到的 React 概念
 
-## Expanding the Oxlint configuration
+- `useState` / `useEffect` — 狀態管理與 API 呼叫
+- `useContext` — 跨元件共享購物車狀態
+- `useParams` — 動態路由取參數
+- `map` / `filter` / `reduce` — 陣列處理
+- React Router `<Link>` / `<Routes>` — SPA 頁面切換
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 啟動
+
+```bash
+npm install
+npm run dev
+```
