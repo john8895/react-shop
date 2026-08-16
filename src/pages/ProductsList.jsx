@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function ProductsList() {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -52,7 +54,14 @@ function ProductsList() {
                     <span className="text-base font-bold text-blue-600">
                       {product.price}
                     </span>
-                    <button className="px-3.5 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700">
+                    <button
+                      className="px-3.5 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                      onClick={(e) => {
+                        e.stopPropagation(); //阻止事件往上冒泡（不讓父元素收到）
+                        e.preventDefault(); //阻止元素的預設行為（如 <a> 跳轉、<form> 送出）
+                        addToCart(product);
+                      }}
+                    >
                       加入
                     </button>
                   </div>
