@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function ProductDetail() {
   const { id } = useParams();
   const [productDetail, setProductDetail] = useState(null); // 單筆資料預設null
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/" + id)
@@ -59,7 +61,10 @@ function ProductDetail() {
             <p className="text-gray-600 leading-relaxed mb-6">
               {productDetail.description}
             </p>
-            <button className="px-8 py-3.5 bg-blue-600 text-white text-base rounded-lg hover:bg-blue-700">
+            <button
+              className="px-8 py-3.5 bg-blue-600 text-white text-base rounded-lg hover:bg-blue-700"
+              onClick={()=> addToCart(productDetail)}
+            >
               加入購物車
             </button>
           </div>
