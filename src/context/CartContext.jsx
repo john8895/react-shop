@@ -10,7 +10,7 @@ export function CartProvider({ children }) {
   const addToCart = (product) => {
     const exists = cart.find((item) => item.id === product.id);
     console.log("加入", product);
-    
+
     if (exists) {
       setCart(
         cart.map((item) =>
@@ -23,19 +23,17 @@ export function CartProvider({ children }) {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
   };
-    // removeFromCart(id) — 刪除商品
-    const removeFromCart = (id) => {
-      setCart(cart.filter((item) => item.id !== id)); // 回傳不是要刪的那一筆，等於把它過濾掉了。
-    }
-    // updateQuantity(id, quantity) — 改數量
-    // 用map找是否要改的那筆，是的話，就把新的存入，否則就不動
+  // removeFromCart(id) — 刪除商品
+  const removeFromCart = (id) => {
+    setCart(cart.filter((item) => item.id !== id)); // 回傳不是要刪的那一筆，等於把它過濾掉了。
+  };
+  // updateQuantity(id, quantity) — 改數量
+  // 用map找是否要改的那筆，是的話，就把新的存入，否則就不動
     const updateQuantity = (id, quantity) => {
-        setCart(cart.map((item) =>
-            item.id === id
-                ? { ...item, quantity }
-                : item
-        ))
-    }
+    setCart(
+      cart.map((item) => (item.id === id ? { ...item, quantity } : item)),
+    );
+  };
 
   return (
     <CartContext.Provider
