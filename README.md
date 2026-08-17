@@ -1,40 +1,32 @@
 # React Shop
 
-A single-page e-commerce app built with the latest React ecosystem.
+React 電商練習專案，使用 FakeStoreAPI 作為資料來源。
 
-## Features
+## Demo
 
-- Product listing with **keyword search** and **category filter**
-- Product detail page with dynamic routing
-- Shopping cart — add, remove, adjust quantity, auto-calculated totals
-- State management via `useContext` (no external state library)
-- Responsive layout with Tailwind CSS
+- 商品列表、搜尋、分類篩選
+- 商品詳情頁（動態路由）
+- 購物車（加入、刪除、改數量、算總價）
 
-## Tech Stack
+## 技術棧
 
-| Tech | Version |
-|------|---------|
-| React | 19 |
-| Vite | 8 |
-| React Router | 7 |
-| Tailwind CSS | 4 |
-| Linter | oxlint |
+- React 19 + Vite
+- React Router（SPA 路由）
+- useContext（購物車狀態管理）
+- Tailwind CSS
+- FakeStoreAPI
 
-Data source: [FakeStoreAPI](https://fakestoreapi.com/)
+## 練到的 React 概念
 
-## React Concepts Covered
+- `useState` / `useEffect` — 狀態管理與 API 呼叫
+- `useContext` — 跨元件共享購物車狀態
+- `useParams` — 動態路由取參數
+- `map` / `filter` / `reduce` — 陣列處理
+- React Router `<Link>` / `<Routes>` — SPA 頁面切換
 
-`useState` · `useEffect` · `useContext` · `useParams` · `map` / `filter` / `reduce`
-
-## Getting Started
+## 啟動
 
 ```bash
-git clone https://github.com/john8895/react-shop.git
-cd react-shop
 npm install
 npm run dev
 ```
-
-## License
-
-MIT
