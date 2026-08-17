@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 
 function ProductsList() {
   const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // 搜尋的 state
+  const [category, setCategory] = useState("所有分類"); // 分類的 state
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -25,8 +27,14 @@ function ProductsList() {
             type="text"
             placeholder="搜尋商品名稱..."
             className="flex-1 min-w-[200px] px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <select className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm bg-white">
+
+          <select
+            onChange={(e) => setCategory(e.target.value)}
+            className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm bg-white"
+          >
             <option>所有分類</option>
             <option>electronics</option>
             <option>jewelery</option>
@@ -37,38 +45,46 @@ function ProductsList() {
 
         {/* 商品卡片網格 */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
-          {products.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id}>
-              <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md cursor-pointer bg-white">
-                <div className="h-45 bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
-                  <img src={product.image} alt="" width="100" />
+          {products
+            .filter((product) =>
+              product.title.toLowerCase().includes(searchTerm.toLowerCase()),
+            ) // 搜尋字串跟商品標題都轉小寫做比對。用 includes 去檢查字串裡面有沒有包含指定的字串，回傳 true 或 false
+            // searchTerm 初始值是 ""，而 .includes("") 永遠回傳 true，所以沒打字時全部商品都顯示，不用額外判斷。
+            .filter((product) =>
+                category === "所有分類" || product.category === category
+            )
+            .map((product) => (
+              <Link to={`/product/${product.id}`} key={product.id}>
+                <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md cursor-pointer bg-white">
+                  <div className="h-45 bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
+                    <img src={product.image} alt="" width="100" />
+                  </div>
+                  <div className="p-3">
+                    <div className="text-sm font-semibold mb-1 truncate">
+                      {product.title}
+                    </div>
+                    <div className="text-xs text-gray-500 mb-2">
+                      {product.category}
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-base font-bold text-blue-600">
+                        {product.price}
+                      </span>
+                      <button
+                        className="px-3.5 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                        onClick={(e) => {
+                          e.stopPropagation(); //阻止事件往上冒泡（不讓父元素收到）
+                          e.preventDefault(); //阻止元素的預設行為（如 <a> 跳轉、<form> 送出）
+                          addToCart(product);
+                        }}
+                      >
+                        加入
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <div className="text-sm font-semibold mb-1 truncate">
-                    {product.title}
-                  </div>
-                  <div className="text-xs text-gray-500 mb-2">
-                    {product.category}
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-base font-bold text-blue-600">
-                      {product.price}
-                    </span>
-                    <button
-                      className="px-3.5 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
-                      onClick={(e) => {
-                        e.stopPropagation(); //阻止事件往上冒泡（不讓父元素收到）
-                        e.preventDefault(); //阻止元素的預設行為（如 <a> 跳轉、<form> 送出）
-                        addToCart(product);
-                      }}
-                    >
-                      加入
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
         </div>
       </div>
     </div>
