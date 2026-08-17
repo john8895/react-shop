@@ -14,5 +14,5 @@
 - [x] Navbar 購物車數字改動態（cart.length）
 - [x] 篩選搜尋（練 filter + useState）
 - [x] 商品詳情頁接 API（練 useParams）
-- [ ] 版面美化（/frontend-design + /design-review）
+- [x] 版面美化（/frontend-design + /design-review）
 - [ ] 部署 GitHub Pages

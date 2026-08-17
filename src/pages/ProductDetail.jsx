@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { ArrowLeft, ShoppingCart, Star } from "lucide-react";
+import Footer from "../components/Footer";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -14,11 +16,10 @@ function ProductDetail() {
       .then((data) => {
         // 正式處理
         setProductDetail(data);
-        console.log(data);
       });
   }, []);
 
-  if (!productDetail) return <div>Loading...</div>; // 第一次渲染時，資料還沒有 fetch 回來，資料沒到，就先不渲染
+  if (!productDetail) return <div className="min-h-screen bg-cream flex items-center justify-center text-charcoal/40 font-light">Loading...</div>;
 
   //  取整 → 用 5 - ★ = 補滿 ☆
   const stars =
@@ -26,19 +27,19 @@ function ProductDetail() {
     "☆".repeat(5 - Math.round(productDetail.rating.rate));
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-cream">
       <Navbar />
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         <Link
           to="/"
-          className="inline-block mb-5 text-gray-500 text-sm hover:text-blue-600"
+          className="inline-block mb-8 text-charcoal/40 text-sm hover:text-amber transition-colors font-light tracking-wide"
         >
-          ← 回商品列表
+          <ArrowLeft size={14} className="inline -mt-0.5 mr-1" />回商品列表
         </Link>
 
-        <div className="flex gap-8 flex-wrap bg-white p-6 rounded-lg">
+        <div className="flex gap-12 flex-wrap bg-white p-8 rounded-2xl shadow-sm border border-charcoal/5">
           {/* 商品大圖 */}
-          <div className="flex-1 min-w-[280px] h-[400px] bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 p-4">
+          <div className="flex-1 min-w-[280px] h-[420px] bg-cream-dark rounded-xl flex items-center justify-center p-8">
             <img
               src={productDetail.image}
               alt=""
@@ -47,29 +48,30 @@ function ProductDetail() {
           </div>
 
           {/* 商品資訊 */}
-          <div className="flex-1 min-w-[280px]">
-            <div className="text-gray-500 text-sm uppercase tracking-wide mb-4">
+          <div className="flex-1 min-w-[280px] py-4">
+            <div className="text-[11px] uppercase tracking-[0.2em] text-amber font-medium mb-4">
               {productDetail.category}
             </div>
-            <h1 className="text-2xl font-bold mb-2">{productDetail.title}</h1>
-            <div className="text-amber-500 text-sm mb-6">
-              {stars} {productDetail.rating.rate} / 5（{productDetail.rating.count} 則評價）
+            <h1 className="font-display text-3xl font-bold mb-4 text-charcoal leading-tight">{productDetail.title}</h1>
+            <div className="text-amber-light text-sm mb-6">
+              {stars} <span className="text-charcoal/40 ml-1">{productDetail.rating.rate} / 5（{productDetail.rating.count} 則評價）</span>
             </div>
-            <div className="text-3xl font-bold text-blue-600 mb-4">
+            <div className="font-display text-4xl font-bold text-charcoal mb-6">
               ${productDetail.price}
             </div>
-            <p className="text-gray-600 leading-relaxed mb-6">
+            <p className="text-charcoal-light/70 leading-relaxed mb-8 text-sm font-light">
               {productDetail.description}
             </p>
             <button
-              className="px-8 py-3.5 bg-blue-600 text-white text-base rounded-lg hover:bg-blue-700"
+              className="px-10 py-3.5 bg-charcoal text-white text-sm rounded-full hover:bg-amber transition-colors duration-200 tracking-widest uppercase font-medium"
               onClick={()=> addToCart(productDetail)}
             >
-              加入購物車
+              <ShoppingCart size={16} className="inline -mt-0.5 mr-2" />加入購物車
             </button>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

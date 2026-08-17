@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { Search, Plus } from "lucide-react";
+import Footer from "../components/Footer";
 
 function ProductsList() {
   const [products, setProducts] = useState([]);
@@ -18,22 +20,47 @@ function ProductsList() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-cream">
       <Navbar />
-      <div className="max-w-4xl mx-auto p-6">
+
+      {/* Hero */}
+      <div className="bg-charcoal text-white px-6 py-20 text-center">
+        <p className="text-[11px] uppercase tracking-[0.3em] text-amber-light mb-4 font-medium">Summer Collection 2026</p>
+        <h1 className="font-display text-5xl md:text-6xl font-bold mb-4 leading-tight">探索風格的起點</h1>
+        <p className="text-cream/50 font-light max-w-md mx-auto mb-8">從日常穿搭到精品配件，找到屬於你的獨特品味</p>
+        <a href="#products" className="inline-block px-8 py-3 border border-amber-light text-amber-light text-sm rounded-full hover:bg-amber-light hover:text-charcoal transition-all duration-300 tracking-widest uppercase font-medium">
+          立即選購
+        </a>
+        <div className="mt-10 animate-bounce">
+          <a href="#products" className="text-cream/30 hover:text-cream/60 transition-colors">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto">
+              <path d="M7 10l5 5 5-5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div id="products" className="max-w-5xl mx-auto px-6 py-10">
+        {/* 頁面標題 */}
+        <h2 className="font-display text-3xl font-bold text-charcoal mb-2">精選商品</h2>
+        <p className="text-charcoal-light/60 text-sm mb-8 font-light">探索我們的商品系列</p>
+
         {/* 篩選 + 搜尋 */}
-        <div className="flex gap-3 mb-5 flex-wrap">
-          <input
-            type="text"
-            placeholder="搜尋商品名稱..."
-            className="flex-1 min-w-[200px] px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm"
+        <div className="flex gap-3 mb-8 flex-wrap">
+          <div className="flex-1 min-w-[200px] relative">
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-charcoal/30" />
+            <input
+              type="text"
+              placeholder="搜尋商品名稱..."
+              className="w-full pl-10 pr-4 py-2.5 border border-charcoal/10 rounded-lg text-sm bg-white/80 focus:outline-none focus:border-amber focus:ring-1 focus:ring-amber/30 transition-all placeholder:text-charcoal/30"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
 
           <select
             onChange={(e) => setCategory(e.target.value)}
-            className="px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm bg-white"
+            className="px-4 py-2.5 border border-charcoal/10 rounded-lg text-sm bg-white/80 focus:outline-none focus:border-amber transition-all"
           >
             <option>所有分類</option>
             <option>electronics</option>
@@ -44,41 +71,40 @@ function ProductsList() {
         </div>
 
         {/* 商品卡片網格 */}
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-6">
           {products
             .filter((product) =>
               product.title.toLowerCase().includes(searchTerm.toLowerCase()),
-            ) // 搜尋字串跟商品標題都轉小寫做比對。用 includes 去檢查字串裡面有沒有包含指定的字串，回傳 true 或 false
-            // searchTerm 初始值是 ""，而 .includes("") 永遠回傳 true，所以沒打字時全部商品都顯示，不用額外判斷。
+            )
             .filter((product) =>
                 category === "所有分類" || product.category === category
             )
             .map((product) => (
               <Link to={`/product/${product.id}`} key={product.id}>
-                <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md cursor-pointer bg-white">
-                  <div className="h-45 bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
-                    <img src={product.image} alt="" width="100" />
+                <div className="group border border-charcoal/5 rounded-xl overflow-hidden hover:shadow-xl cursor-pointer bg-white transition-all duration-300 hover:-translate-y-1">
+                  <div className="h-52 bg-cream-dark flex items-center justify-center p-6">
+                    <img src={product.image} alt="" className="max-h-full object-contain group-hover:scale-105 transition-transform duration-300" />
                   </div>
-                  <div className="p-3">
-                    <div className="text-sm font-semibold mb-1 truncate">
-                      {product.title}
-                    </div>
-                    <div className="text-xs text-gray-500 mb-2">
+                  <div className="p-4">
+                    <div className="text-[11px] uppercase tracking-widest text-amber font-medium mb-2">
                       {product.category}
                     </div>
+                    <div className="text-sm font-medium mb-3 truncate text-charcoal">
+                      {product.title}
+                    </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-base font-bold text-blue-600">
-                        {product.price}
+                      <span className="font-display text-xl font-bold text-charcoal">
+                        ${product.price}
                       </span>
                       <button
-                        className="px-3.5 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                        className="px-4 py-1.5 bg-charcoal text-white text-xs rounded-full hover:bg-amber transition-colors duration-200 tracking-wide"
                         onClick={(e) => {
-                          e.stopPropagation(); //阻止事件往上冒泡（不讓父元素收到）
-                          e.preventDefault(); //阻止元素的預設行為（如 <a> 跳轉、<form> 送出）
+                          e.stopPropagation();
+                          e.preventDefault();
                           addToCart(product);
                         }}
                       >
-                        加入
+                        <Plus size={14} className="inline -mt-0.5" /> 加入
                       </button>
                     </div>
                   </div>
@@ -87,6 +113,7 @@ function ProductsList() {
             ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

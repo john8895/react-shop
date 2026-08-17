@@ -9,7 +9,6 @@ export function CartProvider({ children }) {
   // addToCart(product) — 加入商品（如果已存在，數量 +1）
   const addToCart = (product) => {
     const exists = cart.find((item) => item.id === product.id);
-    console.log("加入", product);
 
     if (exists) {
       setCart(
