@@ -1,8 +1,10 @@
-# React Shop
+# AhanStore
 
 React 電商練習專案，使用 FakeStoreAPI 作為資料來源。
 
 ## Demo
+
+https://john8895.github.io/react-shop/
 
 - 商品列表、搜尋、分類篩選
 - 商品詳情頁（動態路由）
@@ -13,7 +15,8 @@ React 電商練習專案，使用 FakeStoreAPI 作為資料來源。
 - React 19 + Vite
 - React Router（SPA 路由）
 - useContext（購物車狀態管理）
-- Tailwind CSS
+- Tailwind CSS 4
+- Lucide React（icon）
 - FakeStoreAPI
 
 ## 練到的 React 概念
